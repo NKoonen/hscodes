@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>hscodes</name>
+    <displayName><![CDATA[HS Codes ]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[Fill in HS codes for your products to make international sales easier.]]></description>
+    <author><![CDATA[Inform-All]]></author>
+    <tab><![CDATA[shipping_logistics]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall and delete your current HS codes?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
