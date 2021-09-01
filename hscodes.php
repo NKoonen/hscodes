@@ -15,7 +15,7 @@ class Hscodes extends Module
         $this->need_instance = 0;
         $this->bootstrap = true;
         parent::__construct();
-        $this->displayName = $this->l('HS Codes ');
+        $this->displayName = $this->l('HS Codes');
         $this->description = $this->l('Fill in HS codes for your products to make international sales easier.');
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall and delete your current HS codes?');
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
