@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    public: true
+
+  # Override the delivery slip service
+  prestashop.adapter.order.delivery.slip.options.configuration:
+    class: 'NKoonen\Module\Hscodes\Adapter\Order\Delivery\SlipOptionsConfiguration'
+    arguments:
+        - '@prestashop.adapter.legacy.configuration'
+
+  # And its options
+  form.type.order.delivery.slip.options:
+    class: 'NKoonen\Module\Hscodes\Form\Admin\Sell\Order\Delivery\SlipOptionsTypeOverride'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+        - { name: form.type }
+
+  prestashop.adapter.order.delivery.slip.options.form_provider:
+    class: 'NKoonen\Module\Hscodes\Form\Admin\Sell\Order\Delivery\SlipOptionsFormDataProvider'
+    arguments:
+        - '@prestashop.adapter.order.delivery.slip.options.configuration'
+
+  # Needed to fix this one as it had a direct link to the PrestaShopBundle\Form\Admin\Sell\Order\Delivery\SlipOptionsType class in its arguments
+  prestashop.adapter.order.delivery.slip.options.form_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\Handler'
+    arguments:
+        - '@form.factory'
+        - '@prestashop.core.hook.dispatcher'
+        - '@prestashop.adapter.order.delivery.slip.options.form_provider'
+        - 'NKoonen\Module\Hscodes\Form\Admin\Sell\Order\Delivery\SlipOptionsTypeOverride'
+        - 'OrderDeliverySlipOptions'
