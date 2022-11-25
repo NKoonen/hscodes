@@ -56,14 +56,14 @@
                             </td>
                             <td width="5%">&nbsp;</td>
                             <td width="80%">
-                                {$order_detail.product_name}<br>
-                                {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
+                                {$order_detail.product_name}
+                                {if $order_detail.hscode}<br>{l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}{/if}
                             </td>
                         </tr>
                     </table>
                 {else}
-                    {$order_detail.product_name}<br>
-                    {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
+                    {$order_detail.product_name}
+                    {if $order_detail.hscode}<br>{l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}{/if}
                 {/if}
             </td>
             <td class="product center">
