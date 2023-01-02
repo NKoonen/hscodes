@@ -2,7 +2,7 @@
 <module>
     <name>hscodes</name>
     <displayName><![CDATA[HS Codes ]]></displayName>
-    <version><![CDATA[1.0.0]]></version>
+    <version><![CDATA[1.0.1]]></version>
     <description><![CDATA[Fill in HS codes for your products to make international sales easier.]]></description>
     <author><![CDATA[Inform-All]]></author>
     <tab><![CDATA[shipping_logistics]]></tab>
