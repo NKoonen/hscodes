@@ -13,6 +13,7 @@
         <div class="col-xs-12">
             <center>
                 <h4>{l s='This module allowes you to insert a HS code for each product, this is required for international sales' mod='hscodes'}</h4>
+                <h4>More info <a href="https://customs-documents.com">https://customs-documents.com</a></h4>
             </center>
         </div>
     </div>

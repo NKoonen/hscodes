@@ -58,12 +58,14 @@
                             <td width="80%">
                                 {$order_detail.product_name}<br>
                                 {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
+                                {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin}
                             </td>
                         </tr>
                     </table>
                 {else}
                     {$order_detail.product_name}<br>
                     {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
+                    {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin}
                 {/if}
             </td>
             <td class="product center">

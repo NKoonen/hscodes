@@ -10,6 +10,10 @@ class AdminImportController extends AdminImportControllerCore
 				'label' => $this->trans('HS Code'),
 				'help' => $this->trans('HS Code')
 			);
+			$this->available_fields['origin'] = array(
+				'label' => $this->trans('Country of origin'),
+				'help' => $this->trans('Fill in the country of origin of this product')
+			);
 		}
 	}
 }

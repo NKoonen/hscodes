@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">{{ 'Reference'|trans({}, 'Admin.Global') }}</th>
+        <th scope="col">{{ 'Product name'|trans({}, 'Admin.Catalog.Feature') }}</th>
+        <th scope="col">{{ 'HS Code'|trans({}, 'hscodes') }}</th>
+        <th scope="col">{{ 'Country of origin'|trans({}, 'hscodes') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for prod in prods %}
+        <tr>
+            <th>{{ prod.id_product }}</th>
+            <td>{{ prod.product_name }}</td>
+            <td>{% if prod.hscode %}{{ prod.hscode }}{% endif %}</td>
+            <td>{% if prod.origin %}{{ prod.origin }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
