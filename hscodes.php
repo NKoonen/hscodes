@@ -12,7 +12,7 @@ class Hscodes extends Module
     {
         $this->name = 'hscodes';
         $this->tab = 'shipping_logistics';
-        $this->version = '1.3.0';
+        $this->version = '1.3.1';
         $this->author = 'Inform-All';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -62,6 +62,24 @@ class Hscodes extends Module
 
     public function getContent()
     {
+        $showMissingHsCodeProducts = (bool) Tools::getValue('displayMissingHsCodeProducts');
+
+        $missingHsCodeProducts = [];
+
+        if ($showMissingHsCodeProducts) {
+            $missingHsCodeProducts = $this->getProductsWithoutHsCode();
+        }
+
+        $this->context->smarty->assign([
+                                           'module_dir' => $this->_path,
+                                           'show_missing_hscode_products' => $showMissingHsCodeProducts,
+                                           'missing_hscode_products' => $missingHsCodeProducts,
+                                           'missing_hscode_products_url' => $this->getConfigureUrl([
+                                                                                                       'displayMissingHsCodeProducts' => 1,
+                                                                                                   ]),
+                                           'configure_url' => $this->getConfigureUrl(),
+                                       ]);
+
         return $this->display(__FILE__, 'views/templates/admin/configure.tpl');
     }
 
@@ -345,5 +363,72 @@ class Hscodes extends Module
         unset($product);
 
         return $products;
+    }
+
+    private function getConfigureUrl(array $extraParams = []): string
+    {
+        return $this->context->link->getAdminLink('AdminModules', true, [], array_merge([
+                                                                                            'configure' => $this->name,
+                                                                                            'module_name' => $this->name,
+                                                                                        ], $extraParams));
+    }
+
+    private function getProductsWithoutHsCode(): array
+    {
+        $idLang = (int) $this->context->language->id;
+        $idShop = (int) $this->context->shop->id;
+
+        $sql = '
+        SELECT
+            p.`id_product`,
+            p.`reference`,
+            p.`active`,
+            p.`hscode`,
+            pl.`name`
+        FROM `' . _DB_PREFIX_ . 'product` p
+        LEFT JOIN `' . _DB_PREFIX_ . 'product_lang` pl
+            ON pl.`id_product` = p.`id_product`
+            AND pl.`id_lang` = ' . (int) $idLang . '
+            AND pl.`id_shop` = ' . (int) $idShop . '
+        WHERE p.`hscode` = 0
+            OR TRIM(p.`hscode`) = \'\'
+        ORDER BY p.`id_product` ASC
+    ';
+
+        $rows = Db::getInstance()->executeS($sql);
+
+        if (!is_array($rows)) {
+            return [];
+        }
+
+        foreach ($rows as &$row) {
+            $row['edit_url'] = $this->getProductEditUrl((int) $row['id_product']);
+        }
+
+        unset($row);
+
+        return $rows;
+    }
+
+    private function getProductEditUrl(int $productId): string
+    {
+        if ($productId <= 0) {
+            return '#';
+        }
+
+        if (method_exists($this, 'get')) {
+            try {
+                return $this->get('router')->generate('admin_products_edit', [
+                    'productId' => $productId,
+                ]);
+            } catch (Exception $e) {
+                // Fall back to legacy URL below.
+            }
+        }
+
+        return $this->context->link->getAdminLink('AdminProducts', true, [], [
+            'id_product' => $productId,
+            'updateproduct' => 1,
+        ]);
     }
 }
