@@ -62,15 +62,15 @@
                             <td width="5%">&nbsp;</td>
                             <td width="80%">
                                 {$order_detail.product_name}<br>
-                                {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
-                                {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin}
+                                {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode|default:''|escape:'html':'UTF-8'}
+                                {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin|default:''|escape:'html':'UTF-8'}
                             </td>
                         </tr>
                     </table>
                 {else}
                     {$order_detail.product_name} <br>
-                    {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode}
-                    {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin}
+                    {l s='HS Code' d='Shop.Pdf' pdf='true'}: {$order_detail.hscode|default:''|escape:'html':'UTF-8'}
+                    {l s='Origin' d='Shop.Pdf' pdf='true'}: {$order_detail.origin|default:''|escape:'html':'UTF-8'}
                 {/if}
 
             </td>

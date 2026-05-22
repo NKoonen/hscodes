@@ -1,20 +1,29 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">{{ 'Reference'|trans({}, 'Admin.Global') }}</th>
-        <th scope="col">{{ 'Product name'|trans({}, 'Admin.Catalog.Feature') }}</th>
-        <th scope="col">{{ 'HS Code'|trans({}, 'hscodes') }}</th>
-        <th scope="col">{{ 'Country of origin'|trans({}, 'hscodes') }}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for prod in prods %}
-        <tr>
-            <th>{{ prod.id_product }}</th>
-            <td>{{ prod.product_name }}</td>
-            <td>{% if prod.hscode %}{{ prod.hscode }}{% endif %}</td>
-            <td>{% if prod.origin %}{{ prod.origin }}{% endif %}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="card mt-3">
+    <h3 class="card-header">{{ 'HS Codes'|trans({}, 'Modules.Hscodes.Admin') }}</h3>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'Reference'|trans({}, 'Admin.Global') }}</th>
+                <th scope="col">{{ 'Product name'|trans({}, 'Admin.Catalog.Feature') }}</th>
+                <th scope="col">{{ 'HS Code'|trans({}, 'Modules.Hscodes.Admin') }}</th>
+                <th scope="col">{{ 'Country of origin'|trans({}, 'Modules.Hscodes.Admin') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for prod in prods %}
+                <tr>
+                    <td>{{ prod.product_reference|default(prod.reference|default('')) }}</td>
+                    <td>{{ prod.product_name|default(prod.name|default('')) }}</td>
+                    <td>{{ prod.hscode|default('') }}</td>
+                    <td>{{ prod.origin|default('') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-muted text-center">{{ 'No products found.'|trans({}, 'Admin.Notifications.Info') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
